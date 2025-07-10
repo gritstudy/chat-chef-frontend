@@ -1,8 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const PrevButton = () => {
   // logic
+
+  const history = useNavigate();
   const hadlePrev = () => {
+    history(-1);
     console.log("이전 페이지로 이동");
   };
 

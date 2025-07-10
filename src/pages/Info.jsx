@@ -3,6 +3,8 @@ import PrevButton from "../components/PrevButton";
 import InfoInput from "../components/InfoInput";
 import AddButton from "../components/AddButton";
 import Button from "../components/Button";
+import Title from "../components/Title";
+import { useNavigate } from "react-router-dom";
 
 const Info = () => {
   // logic
@@ -14,8 +16,13 @@ const Info = () => {
     console.log("재료 추가하기");
   };
 
+  //React Router Dom 으로 페이지 이동하는 방법두가지
+  //l. Link
+  //2. Navigate
+  const history = useNavigate();
   const handleNext = () => {
     console.log("chat페이지로 이동");
+    history("/chat");
   };
 
   // view
@@ -27,12 +34,7 @@ const Info = () => {
       {/* END:뒤로가기 버튼 */}
       <div className="h-full flex flex-col">
         {/* TODO:Title 컴포넌트 */}
-        <div className="px-2 pt-6">
-          <h1 className="text-4.5xl font-black text-white">
-            당신의 냉장고를 알려주세요
-          </h1>
-        </div>
-        {/* // TODO:Title 컴포넌트 */}
+        <Title mainTitle={"당신의 냉장고를 알려주세요"} />
 
         {/* START:form 영역 */}
         <div className="mt-20 overflow-auto">

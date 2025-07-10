@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
+import Title from "../components/Title";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   // logic
 
+  //React Router Dom 으로 페이지 이동하는 방법두가지
+  //l. Link
+  //2. Navigate
+  const history = useNavigate();
   const handleStart = () => {
     console.log("info페이지로 이동");
+    history("/info");
   };
 
   // view
@@ -17,14 +24,15 @@ const Home = () => {
       </div>
       <div className="h-full flex flex-col">
         {/* TODO:Title 컴포넌트 */}
-        <div className="px-2 pt-6">
-          <h1 className="text-4.5xl font-black text-white">맛있는 쉐프</h1>
-          <span className="block text-sm mt-3 text-white break-keep pr-9">
-            냉장고에 있는 재료로 뭐 해먹을지 고민되시나요? 남은 재료만 넣으면
-            맛있는 레시피가 나옵니다!
-          </span>
-        </div>
-        {/* // TODO:Title 컴포넌트 */}
+        {
+          <Title
+            mainTitle={"맛있는 쉐프"}
+            subTitle={
+              "냉장고에 있는 재료로 뭐 해먹을지 고민되시나요? 남은 재료만 넣으면 맛있는 레시피가 나옵니다!"
+            }
+          />
+        }
+        /}
         {/* START:Button 영역 */}
         <Button
           text="Get started"
