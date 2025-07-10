@@ -8,14 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Info = () => {
   // logic
-
-  // TODO: set함수 추가하기
-  const [ingredientList] = useState([]); // 사용자가 입력할 재료 목록
-
-  const addIngredient = () => {
-    console.log("재료 추가하기");
-  };
-
+  
   //React Router Dom 으로 페이지 이동하는 방법두가지
   //l. Link
   //2. Navigate
@@ -24,6 +17,49 @@ const Info = () => {
     console.log("chat페이지로 이동");
     history("/chat");
   };
+
+  // TODO: set함수 추가하기
+  const [ingredientList, setIngredientList] = useState([]); // 사용자가 입력할 재료 목록
+
+  const addIngredient = () => {
+    console.log("재료 추가하기");
+    //input박스 추가
+    const id = Date.now();
+
+    const newItem = {
+      id,
+      label: `ingredient_${id}`,
+      text: "재료명",
+      value: "", //사용자가 입력할 값
+    };
+    setIngredientList((prev) => [...prev, newItem]); //이전거 계속 추가
+  };
+
+  const handleRemove = (selectedId) => {
+    //선택된거 이외의 것들만 불러온다( 선택되지 않은!==  조건) )
+    const filterList = ingredientList.filter(
+      (ingredient) => ingredient.id !== selectedId
+    );
+    // 선택되지 않은 것들만 재 세팅하니깐 삭제 기능이 됨
+    setIngredientList(filterList);
+    console.log("🚀 ~ handleRemove ~ filterList:", filterList);
+  };
+
+  const handleChange = (userValue, selectedId) => {
+    console.log("🚀 ~ handleChange ~ userValue:", userValue);
+
+  };
+ 
+setIngredientList((prev) =>
+  prev.map((ingredient) =>
+    ingredient.id === selectedId
+      ? { ...ingredient, value: userValue }
+      : { ...ingredient }
+  )
+);
+
+}
+
 
   // view
   return (
@@ -42,7 +78,12 @@ const Info = () => {
             {/* START:input 영역 */}
             <div>
               {ingredientList.map((item) => (
-                <InfoInput key={item.id} content={item} />
+                <InfoInput
+                  key={item.id}
+                  content={item}
+                  onRemove={handleRemove}
+                  onChange={handleChange}
+                />
               ))}
             </div>
             {/* END:input 영역 */}
