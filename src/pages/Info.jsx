@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Info = () => {
   // logic
-  
+
   //React Router Dom 으로 페이지 이동하는 방법두가지
   //l. Link
   //2. Navigate
@@ -46,20 +46,16 @@ const Info = () => {
   };
 
   const handleChange = (userValue, selectedId) => {
-    console.log("🚀 ~ handleChange ~ userValue:", userValue);
-
+    //  console.log("🚀 ~ handleChange ~ userValue:", userValue);
   };
- 
-setIngredientList((prev) =>
-  prev.map((ingredient) =>
-    ingredient.id === selectedId
-      ? { ...ingredient, value: userValue }
-      : { ...ingredient }
-  )
-);
 
-}
-
+  // setIngredientList((prev) =>
+  //   prev.map((ingredient) =>
+  //     ingredient.id === selectedId
+  //       ? { ...ingredient, value: userValue }
+  //       : { ...ingredient }
+  //   )
+  // );
 
   // view
   return (

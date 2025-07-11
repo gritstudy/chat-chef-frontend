@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MessageBox from "../components/MessageBox";
 import PrevButton from "../components/PrevButton";
 import { MoonLoader } from "react-spinners";
@@ -6,7 +6,10 @@ import { MoonLoader } from "react-spinners";
 const Chat = () => {
   // logic
 
-  const [value, setValue] = useState("");
+  //env 설정
+  const endpoint = process.env.REACT_APP_SERVER_ADDRESS;
+
+  const [value, setValue] = useState(""); //state 변수등록된게있다
 
   // TODO: set함수 추가하기
   const [messages] = useState([]); // chatGPT와 사용자의 대화 메시지 배열
@@ -22,6 +25,44 @@ const Chat = () => {
     event.preventDefault();
     console.log("메시지 보내기");
   };
+
+  const sendInfo = async () => {
+    // 백엔드에게 /recipe API 요청
+    //async-awit는 짝꿍
+    // 백엔드로 넘겨주는 구문
+    const response = await fetch(`${endpoint}/recipe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: {},
+    });
+    console.log(
+      "🚀 ~ handleNext ~ response:",
+      response,
+      "endpoint : ",
+      endpoint
+    );
+    const result = await response.json();
+    console.log("🚀 ~ sendInfo ~ result:", result);
+  };
+  useEffect(() => {
+    console.log("컴포넌트가 실행됬을 때 딱 한번 실행");
+  }, []);
+
+  // //첫번째 방법
+  // useEffect(() => {
+  //   console.log("모든 state변경될때마다 실행<- 거의사용되지않음");
+  // });
+  // //두번째 방법
+  // useEffect(() => {
+  //   console.log("컴포넌트가 실행됬을 때 딱 한번 실행");
+  // }, []);
+
+  // //세번째 방법
+  // useEffect(() => {
+  //   console.log(
+  //     "의존성 배열에 등록된 state값이 변경될 때마다 실행 우리는  value다, 여러개도 가능 <-자주 사용됨  "
+  //   );
+  // }, [value, messages]);
 
   // view
   return (
