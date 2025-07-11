@@ -6,8 +6,10 @@ import Button from "../components/Button";
 import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
 
-const Info = () => {
+const Info = ({ sendIngredientList }) => {
   // logic
+  // TODO: set함수 추가하기
+  const [ingredientList, setIngredientList] = useState([]); // 사용자가 입력할 재료 목록
 
   //React Router Dom 으로 페이지 이동하는 방법두가지
   //l. Link
@@ -15,11 +17,9 @@ const Info = () => {
   const history = useNavigate();
   const handleNext = () => {
     console.log("chat페이지로 이동");
+    sendIngredientList(ingredientList);
     history("/chat");
   };
-
-  // TODO: set함수 추가하기
-  const [ingredientList, setIngredientList] = useState([]); // 사용자가 입력할 재료 목록
 
   const addIngredient = () => {
     console.log("재료 추가하기");
@@ -47,15 +47,14 @@ const Info = () => {
 
   const handleChange = (userValue, selectedId) => {
     //  console.log("🚀 ~ handleChange ~ userValue:", userValue);
+    setIngredientList((prev) =>
+      prev.map((ingredient) =>
+        ingredient.id === selectedId
+          ? { ...ingredient, value: userValue }
+          : { ...ingredient }
+      )
+    );
   };
-
-  // setIngredientList((prev) =>
-  //   prev.map((ingredient) =>
-  //     ingredient.id === selectedId
-  //       ? { ...ingredient, value: userValue }
-  //       : { ...ingredient }
-  //   )
-  // );
 
   // view
   return (
